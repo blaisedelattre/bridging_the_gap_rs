@@ -21,7 +21,7 @@ This repository contains the code for the following works:
 
 - **Title:** The Lipschitz-Variance-Margin Tradeoff for Enhanced Randomized Smoothing  
 - **Authors:** Blaise Delattre, Alexandre Araujo, Quentin Barthélemy, Alexandre Allauzen  
-- **Conference:** ICLR, 2024  
+- **Conference:** ICLR 2024  
 - **Paper Link:** [OpenReview](https://openreview.net/forum?id=C36v8541Ns)
 
 ## Code
