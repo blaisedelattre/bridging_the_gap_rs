@@ -5,6 +5,9 @@ This repository contains the code for the following works:
 - **Bridging the Theoretical Gap in Randomized Smoothing**  
 - **The Lipschitz-Variance-Margin Tradeoff for Enhanced Randomized Smoothing**
 
+
+ 
+
 ## Papers
 
 ### Bridging the Theoretical Gap in Randomized Smoothing
@@ -47,6 +50,25 @@ bridging_the_gap_rs/
 ├── README.md                       # Repository overview and instructions
 ```
 
+For *CPM* method you must first generate logs with desired config
+
+```bash
+python code/log_certify.py --base_classifier models/cifar10/resnet110/noise_0.25/checkpoint.pth.tar --N 10000 --sigma 1.0
+```
+
+it will produce logs in a "indir", from there you can certify with the method of your choice
+
+```bash
+python code/log_certify.py --indir indir --mode Rmono --certif pearson_clopper --alpha 0.001
+```
+
+For *LVMRS* to run certification on CIFAR-10, use the following command:
+```bash
+python code/certify_lvmrs.py \
+--sigma 1.00 --skip 1 --N0 100 --N 100000 --batch_size 200 \
+--outfile [file to store certification results]
+```
+
 ## Citation
 
 If you find our work useful, please cite the papers as follows.
@@ -75,3 +97,24 @@ year={2024},
 url={https://openreview.net/forum?id=C36v8541Ns}
 }
 ```
+
+
+## Pretrained Checkpoints
+
+Pretrained models for randomized smoothing can be downloaded from the repository of Cohen et al. (2019):
+
+**Repo:** [https://github.com/locuslab/smoothing](https://github.com/locuslab/smoothing)
+
+These checkpoints have been widely used for robustness certification under Gaussian noise and serve as a reference for evaluating new certification methods.
+
+## Codebase and References
+
+This repository is based on existing open-source implementations, primarily:
+
+- **Cohen et al. (2019):** _"Certified Adversarial Robustness via Randomized Smoothing"_  
+  📄 **Paper:** [https://arxiv.org/abs/1902.02918](https://arxiv.org/abs/1902.02918)  
+  💻 **Code:** [https://github.com/locuslab/smoothing](https://github.com/locuslab/smoothing)
+
+- **(Certified!!) Adversarial Robustness for Free! (2022)**  
+  📄 **Paper:** [https://arxiv.org/abs/2206.10550](https://arxiv.org/abs/2206.10550)  
+  💻 **Code:** [https://github.com/ethz-spylab/diffusion_denoised_smoothing](https://github.com/ethz-spylab/diffusion_denoised_smoothing) 

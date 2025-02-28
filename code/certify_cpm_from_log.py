@@ -84,20 +84,19 @@ parser = argparse.ArgumentParser(description="Certify many examples")
 parser.add_argument(
     "--indir", type=str, help="input directory containing N0 and N files"
 )
-parser.add_argument("--lip", type=bool, default=False, help="log local lipschitzity")
 parser.add_argument(
     "--mode",
     type=str,
-    help="input directory containing N0 and N files",
-    choices=["R2", "R3", "R4", "R5"],
-    default="R2",
+    help="radius choice",
+    choices=["Rmono", "Rmulti"],
+    default="Rmono",
 )
 parser.add_argument(
     "--certif",
     type=str,
-    help="input directory containing N0 and N files",
-    choices=["bonferroni", "heap", "R2", "heap_v3"],
-    default="bonferroni",
+    help="certification procedure used",
+    choices=["bonferroni", "pearson_clopper", "cpm"],
+    default="pearson_clopper",
 )
 parser.add_argument(
     "--alpha", type=float, default=0.001, help="significance level alpha"
@@ -159,7 +158,7 @@ if __name__ == "__main__":
     labels = load_labels(os.path.join(args.indir, N0_file))
 
     with open(output_file, "w") as f:
-        print("idx\tlabel\tpredict\tradius\tcorrect\ttime\tlip", file=f, flush=True)
+        print("idx\tlabel\tpredict\tradius\tcorrect\ttime", file=f, flush=True)
 
         if dataset == "imagenet":
             size = 50000
@@ -211,7 +210,7 @@ if __name__ == "__main__":
 
             time_elapsed = str(datetime.timedelta(seconds=(after_time - before_time)))
             print(
-                "{}\t{}\t{}\t{:.3}\t{}\t{}\t{}".format(
+                "{}\t{}\t{}\t{:.3}\t{}\t{}".format(
                     i, label, prediction, radius, correct, time_elapsed
                 ),
                 file=f,
